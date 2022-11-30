@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   Popover,
   PopoverTrigger,
@@ -15,9 +16,25 @@ import {
 } from "@chakra-ui/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-function DeleteTheater() {
+function DeleteTheater(props) {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const initialFocusRef = React.useRef();
+
+  const  callDeleteApi=()=>{
+axios.delete(`http://localhost:9090/theater/${props.TheaterName}`)
+.then((Response)=>{
+  window.location.reload();
+ {console.log("deleted suceefully")}
+ 
+})
+
+ 
+    
+  }
+  const callfunction=()=>{
+    callDeleteApi();
+    onClose();
+  }
   return (
     <Popover
       isOpen={isOpen}
@@ -52,7 +69,7 @@ function DeleteTheater() {
           pb={4}
         >
           <ButtonGroup size="sm">
-            <Button colorScheme="green" onClick={onClose}>
+            <Button colorScheme="green" onClick={callfunction}>
               Yes Delete
             </Button>
             <Button colorScheme="blue" onClick={onClose}>
